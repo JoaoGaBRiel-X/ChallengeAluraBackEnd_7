@@ -1,4 +1,6 @@
-﻿using ChallengeAluraBackEnd_7.Data;
+﻿using AutoMapper;
+using ChallengeAluraBackEnd_7.Data;
+using ChallengeAluraBackEnd_7.Data.Dtos;
 using ChallengeAluraBackEnd_7.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,15 +13,18 @@ namespace ChallengeAluraBackEnd_7.Controllers;
 public class DepoimentosController : ControllerBase
 {
     private DepoimentosContext _context;
+    private IMapper _mapper;
 
-    public DepoimentosController(DepoimentosContext context)
+    public DepoimentosController(DepoimentosContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     [HttpPost]
-    public IActionResult AdicionaDepoimento([FromBody] Depoimento depoimento)
+    public IActionResult AdicionaDepoimento([FromBody] CreateDepoimentoDto depoimentoDto)
     {
+        Depoimento depoimento = _mapper.Map<Depoimento>(depoimentoDto);
         _context.Depoimentos.Add(depoimento);
         _context.SaveChanges();
         return CreatedAtAction(nameof(RecuperaDepoimentoPorId), new { id = depoimento.Id }, depoimento);
