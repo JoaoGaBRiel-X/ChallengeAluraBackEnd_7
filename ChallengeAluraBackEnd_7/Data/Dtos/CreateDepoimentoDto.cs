@@ -4,7 +4,7 @@ namespace ChallengeAluraBackEnd_7.Data.Dtos;
 
 public class CreateDepoimentoDto
 {
-    public string Foto { get; set; }
+    public IFormFile Foto { get; set; }
     [Required(ErrorMessage = "O texto do depoimento é obrigatório!")]
     [MaxLength(255, ErrorMessage = "O tamanho do depoimento nao pode exceder 255 caracteres")]
     public string TextoDepoimento { get; set; }

@@ -23,9 +23,26 @@ public class DepoimentosController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AdicionaDepoimento([FromBody] CreateDepoimentoDto depoimentoDto)
+    public IActionResult AdicionaDepoimento([FromForm] CreateDepoimentoDto depoimentoDto)
     {
+
+        var filePath = Path.Combine("Storage", depoimentoDto.Foto.FileName);
+        if (depoimentoDto.Foto != null) {
+            using Stream fileStream = new FileStream(filePath, FileMode.Create);
+            depoimentoDto.Foto.CopyTo(fileStream);
+        }
+
         Depoimento depoimento = _mapper.Map<Depoimento>(depoimentoDto);
+
+        if (depoimentoDto != null)
+        {
+            depoimento.Foto = filePath;
+        } 
+        else
+        {
+            depoimento.Foto = null;
+        }
+
         _context.Depoimentos.Add(depoimento);
         _context.SaveChanges();
         return CreatedAtAction(nameof(RecuperaDepoimentoPorId), new { id = depoimento.Id }, depoimento);
@@ -44,6 +61,17 @@ public class DepoimentosController : ControllerBase
         if (depoimento == null) return NotFound();
         var depoimentoDto = _mapper.Map<ReadDepoimentoDto>(depoimento);
         return Ok(depoimentoDto);
+    }
+
+    [HttpGet("{id}/download")]
+    public IActionResult DownloadFoto(int id)
+    {
+        var depoimento = _context.Depoimentos.FirstOrDefault(depoimento =>depoimento.Id == id);
+        if (depoimento == null) return BadRequest();
+
+        var fotoDepoimento = System.IO.File.ReadAllBytes(depoimento.Foto);
+
+        return File(fotoDepoimento, "image/jpeg");
     }
 
     [HttpPut("{id}")]
