@@ -31,9 +31,9 @@ public class DepoimentosController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Depoimento> RecuperaDepoimentos([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadDepoimentoDto> RecuperaDepoimentos([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
-        return _context.Depoimentos.Skip(skip).Take(take);
+        return _mapper.Map<List<ReadDepoimentoDto>>(_context.Depoimentos.Skip(skip).Take(take));
     }
 
     [HttpGet("{id}")]
@@ -41,6 +41,17 @@ public class DepoimentosController : ControllerBase
     {
         var depoimento = _context.Depoimentos.FirstOrDefault(depoimento => depoimento.Id == id);
         if (depoimento == null) return NotFound();
-        return Ok(depoimento);
+        var depoimentoDto = _mapper.Map<ReadDepoimentoDto>(depoimento);
+        return Ok(depoimentoDto);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult AtualizaDepoimento(int id, [FromBody] UpdateDepoimentoDto depoimentoDto)
+    {
+        var depoimento = _context.Depoimentos.FirstOrDefault(depoimento => depoimento.Id == id);
+        if (depoimento == null) return NotFound();
+        _mapper.Map(depoimentoDto, depoimento);
+        _context.SaveChanges();
+        return NoContent();
     }
 }

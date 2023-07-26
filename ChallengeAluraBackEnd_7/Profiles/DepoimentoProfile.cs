@@ -9,5 +9,7 @@ public class DepoimentoProfile : Profile
     public DepoimentoProfile()
     {
         CreateMap<CreateDepoimentoDto, Depoimento>();
+        CreateMap<Depoimento, ReadDepoimentoDto>();
+        CreateMap<UpdateDepoimentoDto, Depoimento>();
     }
 }
