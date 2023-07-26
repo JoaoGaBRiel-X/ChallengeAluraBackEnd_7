@@ -2,6 +2,7 @@
 using ChallengeAluraBackEnd_7.Data;
 using ChallengeAluraBackEnd_7.Data.Dtos;
 using ChallengeAluraBackEnd_7.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
@@ -51,6 +52,35 @@ public class DepoimentosController : ControllerBase
         var depoimento = _context.Depoimentos.FirstOrDefault(depoimento => depoimento.Id == id);
         if (depoimento == null) return NotFound();
         _mapper.Map(depoimentoDto, depoimento);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpPatch("{id}")]
+    public IActionResult AtualizaDepoimentoParcial(int id, JsonPatchDocument<UpdateDepoimentoDto> patch)
+    {
+        var depoimento = _context.Depoimentos.FirstOrDefault(depoimento => depoimento.Id == id);
+        if (depoimento == null) return NotFound();
+
+        var depoimentoParaAtualizar = _mapper.Map<UpdateDepoimentoDto>(depoimento);
+
+        patch.ApplyTo(depoimentoParaAtualizar, ModelState);
+
+        if (!TryValidateModel(depoimentoParaAtualizar))
+        {
+            return ValidationProblem(ModelState);
+        }
+        _mapper.Map(depoimentoParaAtualizar, depoimento);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeletaDepoimento(int id)
+    {
+        var depoimento = _context.Depoimentos.FirstOrDefault(depoimento => depoimento.Id == id);
+        if(depoimento == null) return NotFound();
+        _context.Remove(depoimento);
         _context.SaveChanges();
         return NoContent();
     }
