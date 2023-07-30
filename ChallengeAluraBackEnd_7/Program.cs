@@ -4,6 +4,16 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("http://example.com",
+                                "http://www.example2.com");
+        });
+});
+
 var connectionString = builder.Configuration.GetConnectionString("JornadaMilhasConnection");
 
 builder.Services.AddDbContext<DepoimentosContext>(opts => opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
@@ -27,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeAluraBackEnd_7.Controllers;
 
@@ -72,6 +73,12 @@ public class DepoimentosController : ControllerBase
         var fotoDepoimento = System.IO.File.ReadAllBytes(depoimento.Foto);
 
         return File(fotoDepoimento, "image/jpeg");
+    }
+
+    [HttpGet("depoimentos-home")]
+    public IEnumerable<ReadDepoimentoDto> DepoimentosHome()
+    {
+        return _mapper.Map<List<ReadDepoimentoDto>>(_context.Depoimentos.FromSqlRaw("SELECT Id, Foto, TextoDepoimento, NomeDaPessoa FROM depoimentos ORDER BY RAND() LIMIT 3").ToList());
     }
 
     [HttpPut("{id}")]
