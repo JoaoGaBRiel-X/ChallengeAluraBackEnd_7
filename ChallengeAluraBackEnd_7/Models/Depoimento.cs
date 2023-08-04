@@ -8,7 +8,7 @@ public class Depoimento
     [Required]
     public int Id { get; set; }
 
-    public string Foto { get; set; }
+    public string? Foto { get; set; }
 
     [Required(ErrorMessage = "O texto do depoimento é obrigatório!")]
     [MaxLength(255, ErrorMessage ="O tamanho do depoimento nao pode exceder 255 caracteres")]

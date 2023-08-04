@@ -1,6 +1,7 @@
 using ChallengeAluraBackEnd_7.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ChallengeAluraBackEnd_7.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ var connectionString = builder.Configuration.GetConnectionString("JornadaMilhasC
 builder.Services.AddDbContext<DepoimentosContext>(opts => opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<DepoimentoService>();
 
 // Add services to the container.
 

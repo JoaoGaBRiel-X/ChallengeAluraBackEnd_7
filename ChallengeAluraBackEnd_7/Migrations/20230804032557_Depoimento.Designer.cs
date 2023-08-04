@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChallengeAluraBackEnd_7.Migrations
 {
     [DbContext(typeof(DepoimentosContext))]
-    [Migration("20230725011417_CriandoTabelaDepoimento")]
-    partial class CriandoTabelaDepoimento
+    [Migration("20230804032557_Depoimento")]
+    partial class Depoimento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,6 @@ namespace ChallengeAluraBackEnd_7.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Foto")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NomeDaPessoa")

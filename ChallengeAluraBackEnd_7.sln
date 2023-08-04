@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengeAluraBackEnd_7", "ChallengeAluraBackEnd_7\ChallengeAluraBackEnd_7.csproj", "{D13D4095-E906-4B85-B93A-F08FE7FA85FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChallengeAluraBackEnd_7", "ChallengeAluraBackEnd_7\ChallengeAluraBackEnd_7.csproj", "{D13D4095-E906-4B85-B93A-F08FE7FA85FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengeAluraBackEnd_7_Teste", "ChallengeAluraBackEnd_7_Teste\ChallengeAluraBackEnd_7_Teste.csproj", "{5BA24BD7-CEE1-4444-83F8-88B9EE7C6EC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D13D4095-E906-4B85-B93A-F08FE7FA85FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D13D4095-E906-4B85-B93A-F08FE7FA85FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D13D4095-E906-4B85-B93A-F08FE7FA85FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA24BD7-CEE1-4444-83F8-88B9EE7C6EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA24BD7-CEE1-4444-83F8-88B9EE7C6EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA24BD7-CEE1-4444-83F8-88B9EE7C6EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA24BD7-CEE1-4444-83F8-88B9EE7C6EC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

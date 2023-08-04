@@ -25,7 +25,6 @@ namespace ChallengeAluraBackEnd_7.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Foto")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NomeDaPessoa")
